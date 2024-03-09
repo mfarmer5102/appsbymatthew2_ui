@@ -1,0 +1,157 @@
+html, body, #root, main {
+  background-color: $primary-background-color;
+  background-image: none !important;
+  font-family: $font-family-body;
+}
+
+#drawer, .MuiDrawer-paper {
+  background: $sidebar-background;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+#universalFooter {
+  margin-top: auto;
+}
+
+.MuiAppBar-colorPrimary {
+  background-color: $primary-paper-color !important;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
+  /*-webkit-box-shadow: 0 0 0 30px white inset !important;*/
+  font-size: 1rem !important;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+.primary-font {
+  color: $primary-font-color !important;
+}
+
+.secondary-font {
+  color: $secondary-font-color !important;
+}
+
+.right-align {
+  text-align: right;
+}
+
+/***** Carbon Charts *****/
+
+/* Hide Top Bar */
+.bx--cc--layout-alignitems-center {
+  display: none !important;
+}
+
+/* Remove Top Space */
+.bx--cc--spacer {
+  display: none !important;
+}
+
+/* Make Background Transparent */
+.chart-grid-backdrop {
+  fill: #ffffff00 !important
+}
+
+/***** Material UI Dropdowns *****/
+
+.MuiListItem-root {
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+
+.drawer-link-large {
+  font-weight: 800;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  text-decoration: none;
+  color: $sidebar-font-color;
+}
+
+.large-label {
+  font-weight: 800;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  text-decoration: none;
+}
+
+
+.drawer-link-medium {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  font-size: .9rem;
+  text-decoration: none;
+  color: $sidebar-font-color;
+}
+
+.medium-label {
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  font-size: .9rem;
+  text-decoration: none;
+}
+
+.drawer-link-small {
+  font-weight: 200;
+  margin-bottom: 0.5rem;
+  font-size: .9rem;
+  text-decoration: none;
+  color: $sidebar-font-color;
+}
+
+.small-label {
+  font-weight: 300;
+  margin-bottom: 0.5rem;
+  font-size: .9rem;
+  text-decoration: none;
+}
+
+.card-bg {
+  background-color: $primary-paper-color !important;
+}
+
+.skeleton-loader {
+  background-color: $skeleton-color !important;
+}
+
+.modal {
+  background-color: $primary-paper-color;
+
+  .MuiFormControl-root {
+    padding: 3px
+  }
+
+  .MuiFormLabel-colorPrimary {
+    color: $secondary-font-color !important;
+  }
+
+  .MuiInput-root {
+    color: $secondary-font-color !important;
+  }
+
+  .MuiInput-underline {
+    color: $secondary-font-color !important;
+  }
+
+}
+
+.sidebar-background {
+  background: $sidebar-background;
+}
+
+.sidebar-font {
+  color: $sidebar-font-color
+}
+
+.sidebar-option {
+  background-color: $sidebar-option-background;
+  box-shadow: $sidebar-option-shadow;
+}

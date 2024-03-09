@@ -1,0 +1,15 @@
+@import "../palette";
+
+// Background colors
+$primary-background-color: $soft-white;
+$primary-paper-color: $faded-white;
+// Font colors
+$primary-font-color: $charcoal;
+$secondary-font-color: $midnight;
+// Sidebar
+$sidebar-background: linear-gradient(90deg, rgb(243, 243, 243) 0%, rgb(223 223 223) 100%);
+$sidebar-font-color: $charcoal;
+$sidebar-option-background: $invisible;
+$sidebar-option-shadow: $invisible;
+// Skeletons
+$skeleton-color: $transparent-gray

@@ -1,0 +1,34 @@
+html[data-theme='light'] {
+
+  @import "themes/light";
+  @import "themeTemplate";
+
+}
+
+html[data-theme='dark'] {
+
+  @import "themes/dark";
+  @import "themeTemplate";
+
+}
+
+html[data-theme='blue'] {
+
+  @import "themes/blue";
+  @import "themeTemplate";
+
+}
+
+html[data-theme='pink'] {
+
+  @import "themes/pink";
+  @import "themeTemplate";
+
+}
+
+html[data-theme='retro'] {
+
+  @import "themes/retro";
+  @import "themeTemplate";
+
+}

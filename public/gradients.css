@@ -1,0 +1,35 @@
+.gradient-purplepotion {
+  background: linear-gradient(180deg, #EE9AE5 0%, #5961F9 100%);
+}
+
+.gradient-ember {
+  background: linear-gradient(0deg, #f46b45 0%, #eea849  100%);
+}
+
+.gradient-greensea {
+  background: linear-gradient(0deg, #4CB8C4 0%, #3CD3AD  100%);
+}
+
+.gradient-lemontart {
+  background: linear-gradient(180deg, rgb(255 223 71) 0%, rgb(247 166 46) 100%);
+}
+
+.gradient-pinkpeach {
+  background: linear-gradient(180deg, rgb(255 215 154) 0%, rgb(233, 109, 113) 100%);
+}
+
+.gradient-bluesea {
+  background: linear-gradient(0deg, rgb(18 122 249) 0%, rgb(98 239 239) 100%);
+}
+
+.gradient-sourlime {
+  background: linear-gradient(180deg, rgb(205 225 37) 0%, rgb(106 189 0) 100%);
+}
+
+.gradient-whitemetal {
+  background: linear-gradient(180deg, #ffffff 0%, #e7e7e7  100%);
+}
+
+.gradient-silver {
+  background: linear-gradient(127deg, rgb(243 243 243) 0%, rgb(202 202 202) 100%);
+}
