@@ -27,7 +27,7 @@ const AllApplicationsPage = () => {
 
     const loadApplications = async () => {
         try {
-            let params = '';
+            let params = `limit=${pageSize}&skip=${page * pageSize}&`;
             filteredSkills.length ? params += `skills=${filteredSkills}&` : null;
             filteredStatuses.length ? params += `supportStatus=${filteredStatuses}&` : null;
             const apps = await getApplications(params);

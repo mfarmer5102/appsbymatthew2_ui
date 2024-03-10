@@ -9,7 +9,8 @@ const CardSkill = (props) => {
         <Card className={'card-bg'} elevation={1} style={{minHeight: '50px'}}>
             <CardContent>
                 <div className='primary-font' style={{fontWeight: '800'}}>
-                    {props.data.name}
+                    <span style={{float: 'left'}}>{props.data.name}</span>
+                    <span style={{float: 'right'}}>{props.data.is_featured ? 'Featured Skill!' : null}</span>
                 </div>
             </CardContent>
         </Card>
