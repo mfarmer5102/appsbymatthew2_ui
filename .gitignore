@@ -1,1 +1,7 @@
 /node_modules/
+.idea
+/.idea/.gitignore
+/.idea/abm-ui.iml
+/.idea/modules.xml
+/.idea/vcs.xml
+/.idea/watcherTasks.xml

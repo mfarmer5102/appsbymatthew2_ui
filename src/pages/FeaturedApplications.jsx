@@ -6,15 +6,12 @@ import CardApplication from '../components/DataCards/CardApplication';
 // import CardEntrySkeleton from '../components/DataCards/CardEntrySkeleton';
 import {getApplications} from "../services/applications.service";
 
-const FeaturedApplicationsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
+const FeaturedApplicationsPage = () => {
     const AppContext = useContext(ApplicationContext);
     const [applications, setApplications] = useState([]);
     const [lastFetched, setLastFetched] = useState(new Date());
-    const [entries, setEntries] = useState([]);
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(12);
-    const [sortColumn, setSortColumn] = useState('entry_date');
-    const [sortDirection, setSortDirection] = useState(-1);
     const [isRespondedServer, setIsRespondedServer] = useState(false);
 
     useEffect(async () => {
@@ -27,7 +24,7 @@ const FeaturedApplicationsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
             AppContext.handleError('Unable to load applications.');
         }
         setIsRespondedServer(true);
-    }, [page, sortColumn, sortDirection, lastFetched]);
+    }, [page, lastFetched]);
 
     const updateLastFetched = () => setLastFetched(new Date());
 
@@ -35,7 +32,7 @@ const FeaturedApplicationsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
         let appCards = [];
         if (!isRespondedServer) {
             for (let i = 0; i < 7; i++) {
-                appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                appCards.push(<Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
                     {/*<CardEntrySkeleton/>*/}
                 </Grid>);
             }
@@ -50,7 +47,7 @@ const FeaturedApplicationsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
         } else {
             for (let i = 0; i < applications.length; i++) {
                 applications[i].published_date = moment(applications[i].published_date).utc();
-                appCards.push(<Grid item xs={12} sm={6} md={4} lg={4} xl={3} key={applications[i]._id}>
+                appCards.push(<Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={applications[i]._id}>
                     <CardApplication data={applications[i]} updateLastFetched={updateLastFetched}/>
                 </Grid>);
             }

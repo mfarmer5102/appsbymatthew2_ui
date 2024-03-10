@@ -16,14 +16,3 @@ export async function getApplications(params) {
         throw new Error('Unable to load applications.');
     }
 }
-
-export async function submitLogout() {
-    await simulateDelay();
-    try {
-        document.cookie = `jsonWebToken=${''}`;
-        location.replace("/");
-        setTimeout(() => document.location.reload(), 500); // Wipe out GQL cache
-    } catch (err) {
-        throw new Error('Failed logout.');
-    }
-}

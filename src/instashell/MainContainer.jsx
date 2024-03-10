@@ -6,7 +6,7 @@ const MainContainer = ({instashellSetup, children}) => {
     return (<>
         <div>
             <UniversalSidebar instashellSetup={instashellSetup}/>
-            <main style={{marginLeft: '230px', padding: '30px', minHeight: '40rem', marginBottom: '1.5rem'}}>
+            <main style={{marginLeft: '230px', padding: '30px', minHeight: '30rem', marginBottom: '1.5rem'}}>
                 {children}
             </main>
         </div>

@@ -5,7 +5,7 @@ import InstashellApp from "./instashell/InstashellApp";
 const App = () => {
 
     useEffect(() => {
-        document.querySelector('html').setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
+        document.querySelector('html').setAttribute('data-theme', localStorage.getItem('theme') || 'light');
     }, []);
 
     return (

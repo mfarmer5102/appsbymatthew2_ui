@@ -8,16 +8,7 @@ import WelcomeDialog from "./components/CRUDModals/Welcome";
 
 const instashellSetup = {
     applicationVersion: packageJson.version,
-    unshelledRoutesArr: [
-        // {
-        //     path: "/",
-        //     targetPageComponent: (props) => <Login/>
-        // },
-        // {
-        //     path: "/loggedOut",
-        //     targetPageComponent: (props) => <LoggedOut/>
-        // }
-    ],
+    unshelledRoutesArr: [],
     shelledRoutesArr: [
         {
             path: "/",
@@ -31,39 +22,18 @@ const instashellSetup = {
             hasBackButton: false,
             targetPageComponent: (props) => <AllApplicationsPage/>
         },
-        {
-            path: "/featuredSkills",
-            pageTitle: 'Featured Skills',
-            hasBackButton: false,
-            targetPageComponent: (props) => <SkillsPage/>
-        },
+        // {
+        //     path: "/featuredSkills",
+        //     pageTitle: 'Featured Skills',
+        //     hasBackButton: false,
+        //     targetPageComponent: (props) => <SkillsPage/>
+        // },
         {
             path: "/allSkills",
             pageTitle: 'All Skills',
             hasBackButton: false,
             targetPageComponent: (props) => <SkillsPage/>
-        },
-        // {
-        //     path: "/links",
-        //     pageTitle: 'Links',
-        //     hasBackButton: false,
-        //     targetPageComponent: (props) => <ContactPage/>
-        // },
-        // {
-        //     path: "/entries/:source_key/:source_name/:source_type_key",
-        //     pageTitle: 'Entries',
-        //     hasBackButton: true,
-        //     targetPageComponent: (props) => <EntriesPage sourceKey={props.match.params.source_key}
-        //                                                  sourceName={props.match.params.source_name}
-        //                                                  sourceTypeKey={props.match.params.source_type_key}/>
-        // },
-        // {
-        //     path: "/sources/:source_type_key/:source_type_name",
-        //     pageTitle: 'Sources',
-        //     hasBackButton: true,
-        //     targetPageComponent: (props) => <SourcesPage sourceTypeKey={props.match.params.source_type_key}
-        //                                                  sourceTypeName={props.match.params.source_type_name}/>
-        // }
+        }
     ],
     sidebarHeader: {
         titleLabel: 'AppsByMatthew.com',
@@ -76,7 +46,7 @@ const instashellSetup = {
         {type: 'sublink', label: 'All Applications', path: '/allApplications'},
         {type: 'break'},
         {type: 'link', label: 'Skills', path: '#'},
-        {type: 'sublink', label: 'Featured Skills', path: '/featuredSkills'},
+        // {type: 'sublink', label: 'Featured Skills', path: '/featuredSkills'},
         {type: 'sublink', label: 'All Skills', path: '/allSkills'},
         {type: 'break'},
         {type: 'link', label: 'Links', path: '#'},
@@ -103,19 +73,19 @@ const instashellSetup = {
         {
             title: "Skills",
             contents: [
-                {type: 'link', label: 'All', path: '/skills'}
+                {type: 'link', label: 'All', path: '/allSkills'}
             ]
         },
-        {
-            title: "Theme",
-            contents: [
-                // {type: 'component', component: <ThemePicker label={'Retro'} value={'retro'}/>},
-                {type: 'component', component: <ThemePicker label={'Light'} value={'light'}/>},
-                {type: 'component', component: <ThemePicker label={'Dark'} value={'dark'}/>},
-                {type: 'component', component: <ThemePicker label={'Blue'} value={'blue'}/>},
-                {type: 'component', component: <ThemePicker label={'Pink'} value={'pink'}/>},
-            ]
-        }
+        // {
+        //     title: "Theme",
+        //     contents: [
+        //         // {type: 'component', component: <ThemePicker label={'Retro'} value={'retro'}/>},
+        //         {type: 'component', component: <ThemePicker label={'Light'} value={'light'}/>},
+        //         {type: 'component', component: <ThemePicker label={'Dark'} value={'dark'}/>},
+        //         {type: 'component', component: <ThemePicker label={'Blue'} value={'blue'}/>},
+        //         {type: 'component', component: <ThemePicker label={'Pink'} value={'pink'}/>},
+        //     ]
+        // }
     ]
 }
 

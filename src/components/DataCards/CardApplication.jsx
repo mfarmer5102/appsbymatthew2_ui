@@ -11,7 +11,7 @@ const CardApplication = (props) => {
                 {props.data.title}
             </div>
             <br/>
-            <img src={props.data.image_url} style={{maxWidth: '100%'}}/>
+            <img src={props.data.image_url} style={{width: '100%'}}/>
             <br/>
             <AppDetails data={props.data}/>
         </Card>

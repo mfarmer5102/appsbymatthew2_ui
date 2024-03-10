@@ -6,15 +6,10 @@ import CardSkill from '../components/DataCards/CardSkill';
 // import CardEntrySkeleton from '../components/DataCards/CardEntrySkeleton';
 import {getSkills} from "../services/skills.service";
 
-const SkillsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
+const SkillsPage = () => {
     const AppContext = useContext(ApplicationContext);
     const [skills, setSkills] = useState([]);
     const [lastFetched, setLastFetched] = useState(new Date());
-    const [entries, setEntries] = useState([]);
-    const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(12);
-    const [sortColumn, setSortColumn] = useState('entry_date');
-    const [sortDirection, setSortDirection] = useState(-1);
     const [isRespondedServer, setIsRespondedServer] = useState(false);
 
     useEffect(async () => {
@@ -27,11 +22,11 @@ const SkillsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
             AppContext.handleError('Unable to load skills.');
         }
         setIsRespondedServer(true);
-    }, [page, sortColumn, sortDirection, lastFetched]);
+    }, [lastFetched]);
 
     const updateLastFetched = () => setLastFetched(new Date());
 
-    const generateEntryCards = (skillCode) => {
+    const generateSkillCards = (skillCode) => {
         let appCards = [];
         if (!isRespondedServer) {
             for (let i = 0; i < 7; i++) {
@@ -60,82 +55,51 @@ const SkillsPage = ({sourceKey, sourceName, sourceTypeKey}) => {
         return appCards;
     }
 
-    const goFirstPage = () => {
-        setPage(0);
-        window.scrollTo({top: 200, behavior: 'smooth'});
-    }
-
-    const goPreviousPage = () => {
-        setPage(page - 1);
-        window.scrollTo({top: 200, behavior: 'smooth'});
-    }
-
-    const goNextPage = () => {
-        setPage(page + 1);
-        window.scrollTo({top: 200, behavior: 'smooth'});
-    }
-
     return (<div class='animated fadeIn'>
         <h3 className={'primary-font'}>Back-End Frameworks</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('BACKENDFRAMEWORK')}
+            {generateSkillCards('BACKENDFRAMEWORK')}
         </Grid>
         <h3 className={'primary-font'}>Front-End Frameworks</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('FRONTENDFRAMEWORK')}
+            {generateSkillCards('FRONTENDFRAMEWORK')}
         </Grid>
         <h3 className={'primary-font'}>Databases</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('DATABASE')}
+            {generateSkillCards('DATABASE')}
         </Grid>
         <h3 className={'primary-font'}>Deployment Technologies</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('DEPLOYMENT')}
+            {generateSkillCards('DEPLOYMENT')}
         </Grid>
         <h3 className={'primary-font'}>Cloud Technologies</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('CLOUD')}
+            {generateSkillCards('CLOUD')}
         </Grid>
         <h3 className={'primary-font'}>Languages</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('LANGUAGE')}
+            {generateSkillCards('LANGUAGE')}
         </Grid>
         <h3 className={'primary-font'}>Library</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('LIBRARY')}
+            {generateSkillCards('LIBRARY')}
         </Grid>
         <h3 className={'primary-font'}>Data Science Tools</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('DATASCIENCE')}
+            {generateSkillCards('DATASCIENCE')}
         </Grid>
         <h3 className={'primary-font'}>ORMs</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('ORM')}
+            {generateSkillCards('ORM')}
         </Grid>
         <h3 className={'primary-font'}>Operating Systems</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('OPERATINGSYSTEM')}
+            {generateSkillCards('OPERATINGSYSTEM')}
         </Grid>
         <h3 className={'primary-font'}>Other Technologies</h3>
         <Grid container spacing={1}>
-            {generateEntryCards('OTHER')}
+            {generateSkillCards('OTHER')}
         </Grid>
-        <div style={{display: 'flex', justifyContent: 'center', marginBottom: '1rem'}}>
-            {page !== 0 ?
-                <Chip className='primary-font' variant="outlined" label="Return to First Page" style={{margin: '0.5rem'}}
-                      onClick={(e) => goFirstPage()}>Return to First Page</Chip> :
-                <Chip className='primary-font' variant="outlined" label="Return to First Page" style={{margin: '0.5rem'}}
-                      disabled onClick={(e) => goFirstPage()}>Return to First Page</Chip>}
-            {page > 0 ? <Chip className='primary-font' variant="outlined" label="Previous Page" style={{margin: '0.5rem'}}
-                              onClick={(e) => goPreviousPage()}>Previous Page</Chip> :
-                <Chip className='primary-font' variant="outlined" label="Previous Page" style={{margin: '0.5rem'}} disabled
-                      onClick={(e) => goPreviousPage()}>Previous Page</Chip>}
-            {entries.length === pageSize ?
-                <Chip className='primary-font' variant="outlined" label="Next Page" style={{margin: '0.5rem'}}
-                      onClick={(e) => goNextPage()}>Next Page</Chip> :
-                <Chip className='primary-font' variant="outlined" label="Next Page" style={{margin: '0.5rem'}} disabled
-                      onClick={(e) => goNextPage()}>Next Page</Chip>}
-        </div>
     </div>);
 
 };

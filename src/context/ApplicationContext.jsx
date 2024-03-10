@@ -6,7 +6,6 @@ const ApplicationContextProvider = props => {
     const [isOpenToast, setIsOpenToast] = useState(false);
     const [toastType, setToastType] = useState('success');
     const [toastMessage, setToastMessage] = useState('');
-    const [sourceTypes, setSourceTypes] = useState('');
 
     const handleError = (errMessage) => {
         setToastMessage(errMessage);
@@ -24,11 +23,9 @@ const ApplicationContextProvider = props => {
             isOpenToast,
             toastMessage,
             toastType,
-            sourceTypes,
             setIsOpenToast,
             handleError,
-            handleNotification,
-            setSourceTypes
+            handleNotification
         }}>
             {props.children}
         </ApplicationContext.Provider>);
