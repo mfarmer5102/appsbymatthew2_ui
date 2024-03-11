@@ -5,6 +5,7 @@ import ThemePicker from "./components/Other/ThemePicker";
 import packageJson from '../package.json';
 import React from "react";
 import WelcomeDialog from "./components/CRUDModals/Welcome";
+import AiDialog from "./components/CRUDModals/AiDialog";
 
 const instashellSetup = {
     applicationVersion: packageJson.version,
@@ -53,7 +54,8 @@ const instashellSetup = {
         {type: 'externalSublink', label: 'GitHub', path: 'https://github.com/mfarmer5102'},
         {type: 'externalSublink', label: 'LinkedIn', path: 'https://www.linkedin.com/in/matthew-farmer-204930182'},
         {type: 'break'},
-        {type: 'component', component: <WelcomeDialog/>}
+        {type: 'component', component: <WelcomeDialog/>},
+        {type: 'component', component: <AiDialog/>}
     ],
     footerItemsArr: [
         {
