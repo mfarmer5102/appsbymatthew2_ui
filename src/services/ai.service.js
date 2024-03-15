@@ -16,3 +16,19 @@ export async function processTextWithAi(params) {
         throw new Error('Unable to process.');
     }
 }
+
+export async function searchEmbeddingsPlus(params) {
+    await simulateDelay();
+    const response = await fetch(`${config.apiUrl}/ai/searchEmbeddingsPlus?${params}`, {
+        method: 'GET',
+        headers: {
+            'content-type': 'application/json'
+        },
+        // body: JSON.stringify({username, password})
+    });
+    if (response.ok) {
+        return await response.json();
+    } else {
+        throw new Error('Unable to process.');
+    }
+}

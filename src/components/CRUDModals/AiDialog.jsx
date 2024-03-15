@@ -10,22 +10,32 @@ import {
     TextField
 } from '@mui/material';
 import {ApplicationContext} from '../../context/ApplicationContext';
-import {processTextWithAi} from "../../services/ai.service";
+import {processTextWithAi, searchEmbeddingsPlus} from "../../services/ai.service";
 
 const ResponseIndicator = ({aiResponse}) => {
 
     useEffect(() => {}, [aiResponse])
 
-    return (
-        <div>{aiResponse}</div>
-    )
+    // return (
+    //     <TextField
+    //         id="outlined-basic"
+    //         value={aiResponse}
+    //         // label="Prompt"
+    //         variant="outlined"
+    //         multiline={true}
+    //         fullWidth={true}
+    //         disabled={true}
+    //     />
+    // )
+
+    return aiResponse;
 
 }
 
 const AiDialog = (props) => {
     const AppContext = useContext(ApplicationContext);
     const [open, setOpen] = React.useState(false);
-    const [aiSubmission, setAiSubmission] = useState('Enter your question here');
+    const [aiSubmission, setAiSubmission] = useState(null);
     const [aiResponse, setAiResponse] = useState('Response will go here');
 
     useEffect(() => {
@@ -43,7 +53,9 @@ const AiDialog = (props) => {
     const submitToAi = async () => {
         try {
             let params = `text=${aiSubmission}`
-            const res = await processTextWithAi(params);
+            const res = await searchEmbeddingsPlus(params);
+            console.log(res)
+            // setAiResponse(res)
             setAiResponse(res.text);
         } catch (e) {
             console.log(e)
@@ -53,20 +65,22 @@ const AiDialog = (props) => {
 
     const populateModalContents = () => {
         return (
-            <>
+            <div style={{padding: '20px', minWidth: '500px'}}>
                 <TextField
                     id="outlined-basic"
+                    placeholder='Enter prompt here'
                     value={aiSubmission}
-                    label="Outlined"
+                    // label="Outlined"
                     variant="outlined"
                     multiline={true}
+                    fullWidth={true}
                     onChange={e => setAiSubmission(e.target.value)}
                 />
-                <br/>
+                <br/><br/>
                 <ResponseIndicator aiResponse={aiResponse}/>
                 <br/>
-                <Button onClick={submitToAi}>Submit</Button>
-            </>
+                <Button variant='outlined' onClick={submitToAi}>Submit</Button>
+            </div>
         )
     }
 
