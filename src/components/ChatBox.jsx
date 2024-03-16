@@ -131,7 +131,7 @@ const AiDialog = (props) => {
                     autoFocus={true}
                     style={{marginTop: '20px'}}
                     id="outlined-basic"
-                    placeholder='Enter prompt here, then press Enter.'
+                    placeholder='Type question here, then press Enter.'
                     value={aiSubmission}
                     // label="Outlined"
                     variant="outlined"
