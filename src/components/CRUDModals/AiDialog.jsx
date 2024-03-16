@@ -27,6 +27,7 @@ const AiDialog = (props) => {
             timestamp: new Date()
         }
     ]);
+    const [isAwaitingChatReply, setIsAwaitingChatReply] = useState(false);
     const [lastUpdatedChat, setLastUpdatedChat] = useState(new Date())
 
     useEffect(() => {}, []);
@@ -41,6 +42,7 @@ const AiDialog = (props) => {
 
     const submitToAi = async () => {
         try {
+            setIsAwaitingChatReply(true);
             let params = `text=${aiSubmission}`
             const res = await searchEmbeddingsPlus(params);
             const updatedChatLog = chatLog;
@@ -49,6 +51,7 @@ const AiDialog = (props) => {
                 text: res.text,
                 timestamp: new Date()
             })
+            setIsAwaitingChatReply(false);
             console.log(updatedChatLog)
             setChatLog(updatedChatLog);
             setLastUpdatedChat(new Date());
@@ -103,6 +106,14 @@ const AiDialog = (props) => {
         return (
             <div style={{padding: '20px', minWidth: '500px'}}>
                 {messageBubbles}
+                <br/>
+                <div style={{float: 'left', width: '100%', marginTop: '20px'}}>
+                    {isAwaitingChatReply
+                        ? <i>Anita Goodjob is typing...</i>
+                        : null
+                    }
+                </div>
+
                 <TextField
                     autoFocus={true}
                     style={{marginTop: '20px'}}
