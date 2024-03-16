@@ -16,7 +16,7 @@ import moment from "moment";
 
 const AiDialog = (props) => {
     const AppContext = useContext(ApplicationContext);
-    const messagesRef = useRef();
+
     const [isOpenPanel, setIsOpenPanel] = useState(true);
     const [open, setOpen] = React.useState(false);
     const [aiSubmission, setAiSubmission] = useState(null);
@@ -31,7 +31,15 @@ const AiDialog = (props) => {
     const [isAwaitingChatReply, setIsAwaitingChatReply] = useState(false);
     const [lastUpdatedChat, setLastUpdatedChat] = useState(new Date())
 
-    useEffect(() => {}, []);
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, [lastUpdatedChat]);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -43,6 +51,7 @@ const AiDialog = (props) => {
 
     const submitToAi = async () => {
         try {
+            setLastUpdatedChat(new Date());
             setIsAwaitingChatReply(true);
             let params = `text=${aiSubmission}`
             const res = await searchEmbeddingsPlus(params);
@@ -63,6 +72,7 @@ const AiDialog = (props) => {
     }
 
     const populateModalContents = () => {
+
         if (!isOpenPanel) return null;
         const messageBubbles = [];
         chatLog.forEach(item => {
@@ -79,7 +89,7 @@ const AiDialog = (props) => {
                             {item.text}
                         </div>
                         <small style={{float: 'left'}}>
-                            Received {moment(item.timestamp).format('hh:mm A')}
+                            Received {moment(item.timestamp).format('h:mm A')}
                         </small>
                         <br/>
                     </div>
@@ -97,7 +107,7 @@ const AiDialog = (props) => {
                             {item.text}
                         </div>
                         <small style={{float: 'right'}}>
-                            Sent {moment(item.timestamp).format('hh:mm A')}
+                            Sent {moment(item.timestamp).format('h:mm A')}
                         </small>
                         <br/>
                     </div>
@@ -117,6 +127,7 @@ const AiDialog = (props) => {
                 </div>
 
                 <TextField
+                    ref={messagesEndRef}
                     autoFocus={true}
                     style={{marginTop: '20px'}}
                     id="outlined-basic"
@@ -146,6 +157,22 @@ const AiDialog = (props) => {
         )
     }
 
+    const generatePanelHeader = () => {
+        return (
+            <div
+                // style={{padding: '10px'}}
+                onClick={handleClickOpen}
+                variant="text"
+                className={'medium-label sidebar-font'}
+            >
+                <span style={{float: 'left'}}>AI Assistant</span>
+                <span style={{float: 'right', cursor: 'pointer'}} onClick={(e) => setIsOpenPanel(!isOpenPanel)}>
+                    {isOpenPanel ? 'Hide' : 'Show'}
+                </span>
+            </div>
+        );
+    }
+
     return (<div style={{
         padding: '10px',
         position: 'fixed',
@@ -156,35 +183,19 @@ const AiDialog = (props) => {
         bottom: '0px',
         background: 'white',
         // borderRadius: '10px',
-        maxHeight: '600px',
-        overflowY: 'scroll',
-        overflowX: 'hidden',
+
         border: '1px solid silver',
         boxShadow: '#80808057 0px 0px 10px 0px',
     }}>
-        <div
-            onClick={handleClickOpen}
-            variant="text"
-            className={'medium-label sidebar-font'}
-        >
-            <span style={{float: 'left'}}>AI Assistant</span>
-            <span style={{float: 'right', cursor: 'pointer'}} onClick={(e) => setIsOpenPanel(!isOpenPanel)}>
-                {isOpenPanel ? 'Hide' : 'Show'}
-            </span>
+        {generatePanelHeader()}
+        <div style={{
+            maxHeight: '600px',
+            overflowY: 'scroll',
+            overflowX: 'hidden',
+            width: '100%'
+        }}>
+            {populateModalContents()}
         </div>
-        {/*<Dialog open={open} onClose={handleClose}>*/}
-        {/*    <DialogTitle className='modal primary-font'>*/}
-        {/*        AppsByMatthew.com - AI Assistant*/}
-        {/*    </DialogTitle>*/}
-        {/*    <DialogContent className='modal primary-font'>*/}
-        {/*        <DialogContentText className='modal primary-font'>*/}
-                    {populateModalContents()}
-            {/*    </DialogContentText>*/}
-            {/*</DialogContent>*/}
-            {/*<DialogActions className='modal primary-font'>*/}
-            {/*    <Button className='modal primary-font' onClick={handleClose}>Close</Button>*/}
-            {/*</DialogActions>*/}
-        {/*</Dialog>*/}
     </div>);
 }
 
