@@ -22,7 +22,7 @@ const AiDialog = (props) => {
     const [aiResponse, setAiResponse] = useState('');
     const [chatLog, setChatLog] = useState([
         {
-            text: "Hello! Ask me anything about Matt's skills and applications.",
+            text: "Hello there! Ask me anything about Matt's skills and applications, and I will do my best to answer!",
             role: "system",
             timestamp: new Date()
         }
@@ -150,10 +150,12 @@ const AiDialog = (props) => {
             variant="text"
             className={'medium-label sidebar-font'}
         >
-            ABM-AI
+            AI Assistant
         </div>
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle className='modal primary-font'>ABM-AI</DialogTitle>
+            <DialogTitle className='modal primary-font'>
+                AppsByMatthew.com - AI Assistant
+            </DialogTitle>
             <DialogContent className='modal primary-font'>
                 <DialogContentText className='modal primary-font'>
                     {populateModalContents()}
