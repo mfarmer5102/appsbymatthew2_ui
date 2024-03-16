@@ -22,7 +22,7 @@ const AiDialog = (props) => {
     const [aiResponse, setAiResponse] = useState('');
     const [chatLog, setChatLog] = useState([
         {
-            text: "Hello there! Ask me anything about Matt's skills and applications, and I will do my best to answer!",
+            text: "Hello there! I'm Matt's AI Assistant. Ask me anything about Matt's skills and applications, and I will do my best to answer!",
             role: "system",
             timestamp: new Date()
         }
