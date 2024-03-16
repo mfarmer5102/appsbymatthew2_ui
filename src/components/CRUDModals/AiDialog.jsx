@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import {ApplicationContext} from '../../context/ApplicationContext';
 import {processTextWithAi, searchEmbeddingsPlus} from "../../services/ai.service";
+import moment from "moment";
 
 
 const AiDialog = (props) => {
@@ -22,7 +23,8 @@ const AiDialog = (props) => {
     const [chatLog, setChatLog] = useState([
         {
             text: "Hello! Ask me anything about Matt's skills and applications.",
-            role: "system"
+            role: "system",
+            timestamp: new Date()
         }
     ]);
     const [lastUpdatedChat, setLastUpdatedChat] = useState(new Date())
@@ -44,7 +46,8 @@ const AiDialog = (props) => {
             const updatedChatLog = chatLog;
             updatedChatLog.push({
                 role: 'system',
-                text: res.text
+                text: res.text,
+                timestamp: new Date()
             })
             console.log(updatedChatLog)
             setChatLog(updatedChatLog);
@@ -60,14 +63,38 @@ const AiDialog = (props) => {
         chatLog.forEach(item => {
             if (item.role === 'system') {
                 messageBubbles.push(
-                    <div style={{width: 'fit-content', float: 'left', background: '#0072ff', color: 'white', margin: '10px 100px 10px 0px', padding: '10px', borderRadius: '20px'}}>
-                        {item.text}
+                    <div style={{width: 'fit-content', float: 'left'}}>
+                        <div style={{
+                            background: '#0072ff',
+                            color: 'white',
+                            margin: '10px 100px 3px 0px',
+                            padding: '10px',
+                            borderRadius: '20px'
+                        }}>
+                            {item.text}
+                        </div>
+                        <small style={{float: 'left'}}>
+                            Received {moment(item.timestamp).format('hh:mm A')}
+                        </small>
+                        <br/>
                     </div>
                 )
             } else if (item.role === 'user') {
                 messageBubbles.push(
-                    <div style={{width: 'fit-content', float: 'right', background: 'silver', color: 'black', margin: '10px 0px 10px 100px', padding: '10px', borderRadius: '20px'}}>
-                        {item.text}
+                    <div style={{width: 'fit-content', float: 'right'}}>
+                        <div style={{
+                            background: 'silver',
+                            color: 'black',
+                            margin: '10px 0px 3px 100px',
+                            padding: '10px',
+                            borderRadius: '20px'
+                        }}>
+                            {item.text}
+                        </div>
+                        <small style={{float: 'right'}}>
+                            Sent {moment(item.timestamp).format('hh:mm A')}
+                        </small>
+                        <br/>
                     </div>
                 )
             }
@@ -77,6 +104,8 @@ const AiDialog = (props) => {
             <div style={{padding: '20px', minWidth: '500px'}}>
                 {messageBubbles}
                 <TextField
+                    autoFocus={true}
+                    style={{marginTop: '20px'}}
                     id="outlined-basic"
                     placeholder='Enter prompt here, then press Enter.'
                     value={aiSubmission}
@@ -91,7 +120,8 @@ const AiDialog = (props) => {
                             const updatedChatLog = chatLog;
                             updatedChatLog.push({
                                 role: 'user',
-                                text: aiSubmission
+                                text: aiSubmission,
+                                timestamp: new Date()
                             })
                             setChatLog(updatedChatLog)
                             setAiSubmission('')
