@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import instashellSetup from "./instashellSetup";
 import InstashellApp from "./instashell/InstashellApp";
+import ChatBox from "./components/ChatBox";
 
 const App = () => {
 
@@ -9,7 +10,10 @@ const App = () => {
     }, []);
 
     return (
-        <InstashellApp instashellSetup={instashellSetup}/>
+        <>
+            <InstashellApp instashellSetup={instashellSetup}/>
+            <ChatBox/>
+        </>
     );
 
 }
