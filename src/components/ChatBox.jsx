@@ -12,7 +12,7 @@ import {
 import {ApplicationContext} from '../context/ApplicationContext';
 import {processTextWithAi, searchEmbeddingsPlus} from "../services/ai.service";
 import moment from "moment";
-
+import DogPhoto from './doggy.jpg';
 
 const AiDialog = (props) => {
     const AppContext = useContext(ApplicationContext);
@@ -23,7 +23,7 @@ const AiDialog = (props) => {
     const [aiResponse, setAiResponse] = useState('');
     const [chatLog, setChatLog] = useState([
         {
-            text: "Hello there! I'm Matt's AI Assistant. Ask me anything about Matt's skills and applications, and I will do my best to answer!",
+            text: "Woof! Hello there! I'm Matt's AI Assistant. Ask me anything about Matt's skills and applications, and I will do my best to answer!",
             role: "system",
             timestamp: new Date()
         }
@@ -165,6 +165,17 @@ const AiDialog = (props) => {
                 variant="text"
                 className={'medium-label sidebar-font'}
             >
+                <img
+                    src={DogPhoto}
+                    style={{
+                        height: '100px',
+                        position: 'absolute',
+                        borderRadius: '100%',
+                        top: '-60px',
+                        left: '250px',
+                        boxShadow: 'gray 0px 0px 7px'
+                    }}
+                />
                 <span style={{float: 'left'}}>AI Assistant</span>
                 <span style={{float: 'right', cursor: 'pointer'}} onClick={(e) => setIsOpenPanel(!isOpenPanel)}>
                     {isOpenPanel ? 'Hide' : 'Show'}
