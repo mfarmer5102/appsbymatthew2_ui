@@ -5,7 +5,6 @@ import ThemePicker from "./components/Other/ThemePicker";
 import packageJson from '../package.json';
 import React from "react";
 import WelcomeDialog from "./components/CRUDModals/Welcome";
-import AiDialog from "./components/CRUDModals/AiDialog";
 
 const instashellSetup = {
     applicationVersion: packageJson.version,
