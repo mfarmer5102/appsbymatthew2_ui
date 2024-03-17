@@ -121,7 +121,7 @@ const AiDialog = (props) => {
                 <br/>
                 <div style={{float: 'left', width: '100%', marginTop: '20px'}}>
                     {isAwaitingChatReply
-                        ? <i>Anita Goodjob is typing...</i>
+                        ? <i>AI Assistant is typing...</i>
                         : null
                     }
                 </div>

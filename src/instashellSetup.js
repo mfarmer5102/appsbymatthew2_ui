@@ -54,8 +54,7 @@ const instashellSetup = {
         {type: 'externalSublink', label: 'GitHub', path: 'https://github.com/mfarmer5102'},
         {type: 'externalSublink', label: 'LinkedIn', path: 'https://www.linkedin.com/in/matthew-farmer-204930182'},
         {type: 'break'},
-        {type: 'component', component: <WelcomeDialog/>},
-        {type: 'component', component: <AiDialog/>}
+        {type: 'component', component: <WelcomeDialog/>}
     ],
     footerItemsArr: [
         {
