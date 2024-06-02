@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {ApplicationContext} from '../../context/ApplicationContext';
 import {Card, CardContent, Typography} from '@mui/material';
+import Star from '@mui/icons-material/Star';
 
 const CardSkill = (props) => {
     const AppContext = useContext(ApplicationContext);
@@ -10,7 +11,7 @@ const CardSkill = (props) => {
             <CardContent>
                 <div className='primary-font' style={{fontWeight: '800'}}>
                     <span style={{float: 'left'}}>{props.data.name}</span>
-                    <span style={{float: 'right'}}>{props.data.is_featured ? 'Featured Skill!' : null}</span>
+                    <span style={{float: 'right'}}>{props.data.is_featured ? <Star style={{color: '#dbaf0f'}} /> : null}</span>
                 </div>
             </CardContent>
         </Card>

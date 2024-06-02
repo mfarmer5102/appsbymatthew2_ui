@@ -126,52 +126,36 @@ const SkillsPage = () => {
         return appCards;
     }
 
+    const generateSkillSections = () => {
+        let sections = [
+            {label: 'Back-End Frameworks', skillCode: 'BACKENDFRAMEWORK'},
+            {label: 'Front-End Frameworks', skillCode: 'FRONTENDFRAMEWORK'},
+            {label: 'Cloud Technologies', skillCode: 'CLOUD'},
+            {label: 'Languages', skillCode: 'LANGUAGE'},
+            {label: 'Libraries', skillCode: 'LIBRARY'},
+            {label: 'Data Science Tools', skillCode: 'DATASCIENCE'},
+            {label: 'ORMs', skillCode: 'ORM'},
+            {label: 'Operating Systems', skillCode: 'OPERATINGSYSTEM'},
+            {label: 'Other Technologies', skillCode: 'OTHER'},
+        ]
+        const sectionDivs = sections.map(item => {
+            let skillCards = generateSkillCards(item.skillCode);
+            if (!skillCards.length) return null;
+            return (
+                <>
+                    <h3 className={'primary-font'}>{item.label}</h3>
+                    <Grid container spacing={1}>
+                        {skillCards}
+                    </Grid>
+                </>
+            )
+        });
+        return sectionDivs
+    }
+
     return (<div class='animated fadeIn'>
         <VerbalFilter/>
-        <h3 className={'primary-font'}>Back-End Frameworks</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('BACKENDFRAMEWORK')}
-        </Grid>
-        <h3 className={'primary-font'}>Front-End Frameworks</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('FRONTENDFRAMEWORK')}
-        </Grid>
-        <h3 className={'primary-font'}>Databases</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('DATABASE')}
-        </Grid>
-        <h3 className={'primary-font'}>Deployment Technologies</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('DEPLOYMENT')}
-        </Grid>
-        <h3 className={'primary-font'}>Cloud Technologies</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('CLOUD')}
-        </Grid>
-        <h3 className={'primary-font'}>Languages</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('LANGUAGE')}
-        </Grid>
-        <h3 className={'primary-font'}>Library</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('LIBRARY')}
-        </Grid>
-        <h3 className={'primary-font'}>Data Science Tools</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('DATASCIENCE')}
-        </Grid>
-        <h3 className={'primary-font'}>ORMs</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('ORM')}
-        </Grid>
-        <h3 className={'primary-font'}>Operating Systems</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('OPERATINGSYSTEM')}
-        </Grid>
-        <h3 className={'primary-font'}>Other Technologies</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('OTHER')}
-        </Grid>
+        {generateSkillSections()}
     </div>);
 
 };
