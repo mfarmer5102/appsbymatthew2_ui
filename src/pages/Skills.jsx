@@ -32,30 +32,20 @@ const SkillsPage = () => {
     const updateLastFetched = () => setLastFetched(new Date());
 
     const submitToAi = async () => {
+        // setIsRespondedServer(false);
         try {
-            setSkills([])
-            // setLastUpdatedChat(new Date());
-            // setIsAwaitingChatReply(true);
+            setSkills([]);
             let params = `text=Find skills that meet the following criteria: ${aiSubmission}`
             const res = await genericFunctionCall(params);
-            console.log(res)
             setSkills(res.data)
-            // updateLastFetched()
-            // alert(res)
-            // const updatedChatLog = chatLog;
-            // updatedChatLog.push({
-            //     role: 'system',
-            //     text: res.text,
-            //     timestamp: new Date()
-            // })
-            // setIsAwaitingChatReply(false);
-            // console.log(updatedChatLog)
-            // setChatLog(updatedChatLog);
-            // setLastUpdatedChat(new Date());
-        } catch (e) {
+        }
+        catch (e) {
             console.log(e)
             AppContext.handleError('Unable to process.');
         }
+        // finally {
+        //     setIsRespondedServer(true);
+        // }
     }
 
     const VerbalFilter = () => (
@@ -66,8 +56,6 @@ const SkillsPage = () => {
                     height: '50px',
                     position: 'absolute',
                     borderRadius: '100%',
-                    // top: '-60px',
-                    // left: '250px',
                     boxShadow: 'gray 0px 0px 7px'
                 }}
             />
@@ -76,22 +64,13 @@ const SkillsPage = () => {
                 placeholder="Tell me what you would like to see! For example, 'Show me featured programming languages'"
                 value={aiSubmission}
                 autoFocus={true}
-                // label="Outlined"
                 variant="outlined"
-                // multiline={true}
                 fullWidth={true}
                 onChange={e => setAiSubmission(e.target.value)}
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
-                            setAiSubmission('')
-                            submitToAi(e.target.value)
-                            // const updatedChatLog = chatLog;
-                            // updatedChatLog.push({
-                            //     role: 'user',
-                            //     text: aiSubmission,
-                            //     timestamp: new Date()
-                            // })
-                            // setChatLog(updatedChatLog)
+                        setAiSubmission('');
+                        submitToAi(e.target.value);
                     }
                 }}
             />
