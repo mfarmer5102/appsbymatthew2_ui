@@ -97,7 +97,7 @@ const SkillsPage = () => {
             for (let i = 0; i < skills?.length; i++) {
                 if (skills[i].skill_type_code === skillCode) {
                     skills[i].published_date = moment(skills[i].published_date).utc();
-                    appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={skills[i]._id}>
+                    appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={`${skills[i].name}_${Math.random()}`}>
                         <CardSkill data={skills[i]} updateLastFetched={updateLastFetched}/>
                     </Grid>);
                 }

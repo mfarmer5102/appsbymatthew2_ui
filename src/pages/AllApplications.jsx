@@ -63,7 +63,7 @@ const AllApplicationsPage = () => {
         } else {
             for (let i = 0; i < applications.length; i++) {
                 applications[i].published_date = moment(applications[i].published_date).utc();
-                appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={applications[i]._id}>
+                appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={`${applications[i].title}_${Math.random()}`}>
                     <CardApplication
                         data={applications[i]}
                         // updateLastFetched={updateLastFetched}
