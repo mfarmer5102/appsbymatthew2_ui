@@ -40,8 +40,7 @@ const FeaturedApplicationsPage = () => {
         } else if (isRespondedServer && !applications.length) {
             return (<Grid item xs={12}>
                 <div style={{textAlign: 'center', marginTop: '2rem'}}>
-                    No entries to show for this source.
-                    Create a new entry to see it appear here.
+                    No applications to show.
                 </div>
                 <br/>
             </Grid>);

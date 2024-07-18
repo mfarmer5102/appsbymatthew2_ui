@@ -5,7 +5,7 @@ import {Chip, Grid} from '@material-ui/core';
 import CardSkill from '../components/DataCards/CardSkill';
 // import CardEntrySkeleton from '../components/DataCards/CardEntrySkeleton';
 import {getSkills} from "../services/skills.service";
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import {genericFunctionCall, searchEmbeddingsPlus} from "../services/ai.service";
 import DogPhoto from "../components/doggy.jpg";
 import SkeletonCardSkill from "../components/DataCards/SkeletonCardSkill";
@@ -18,8 +18,12 @@ const SkillsPage = () => {
     const [aiSubmission, setAiSubmission] = useState(null)
 
     useEffect(async () => {
-        setIsRespondedServer(false);
         window.scrollTo(0, 0);
+        await loadSkills();
+    }, [lastFetched]);
+
+    const loadSkills = async () => {
+        setIsRespondedServer(false);
         try {
             const skills = await getSkills();
             setSkills(skills);
@@ -27,12 +31,12 @@ const SkillsPage = () => {
             AppContext.handleError('Unable to load skills.');
         }
         setIsRespondedServer(true);
-    }, [lastFetched]);
+    }
 
     const updateLastFetched = () => setLastFetched(new Date());
 
     const submitToAi = async () => {
-        // setIsRespondedServer(false);
+        setIsRespondedServer(false);
         try {
             setSkills([]);
             let params = `text=Find skills that meet the following criteria: ${aiSubmission}`
@@ -43,9 +47,9 @@ const SkillsPage = () => {
             console.log(e)
             AppContext.handleError('Unable to process.');
         }
-        // finally {
-        //     setIsRespondedServer(true);
-        // }
+        finally {
+            setIsRespondedServer(true);
+        }
     }
 
     const VerbalFilter = () => (
@@ -74,6 +78,11 @@ const SkillsPage = () => {
                     }
                 }}
             />
+            <div style={{float: 'right'}}>
+                <Button onClick={() => loadSkills()}>
+                    Reset results
+                </Button>
+            </div>
         </>
     )
 
@@ -88,8 +97,7 @@ const SkillsPage = () => {
         } else if (isRespondedServer && !skills?.length) {
             return (<Grid item xs={12}>
                 <div style={{textAlign: 'center', marginTop: '2rem'}}>
-                    No entries to show for this source.
-                    Create a new entry to see it appear here.
+                    No skills to show.
                 </div>
                 <br/>
             </Grid>);
@@ -132,10 +140,19 @@ const SkillsPage = () => {
                 </>
             )
         });
-        return sectionDivs
+        const finalSectionDivs = sectionDivs.filter(item => !!item)
+        if (!finalSectionDivs.length) return (
+            <Grid item xs={12}>
+                <div style={{textAlign: 'center', marginTop: '4rem'}}>
+                    No skills to show.
+                </div>
+                <br/>
+            </Grid>
+        )
+        return finalSectionDivs
     }
 
-    return (<div class='animated fadeIn'>
+    return (<div className='animated fadeIn'>
         <VerbalFilter/>
         {generateSkillSections()}
     </div>);
