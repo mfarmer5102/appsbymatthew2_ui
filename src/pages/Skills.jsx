@@ -5,12 +5,17 @@ import {Chip, Grid} from '@material-ui/core';
 import CardSkill from '../components/DataCards/CardSkill';
 // import CardEntrySkeleton from '../components/DataCards/CardEntrySkeleton';
 import {getSkills} from "../services/skills.service";
+import {TextField} from "@mui/material";
+import {genericFunctionCall, searchEmbeddingsPlus} from "../services/ai.service";
+import DogPhoto from "../components/doggy.jpg";
+import SkeletonCardSkill from "../components/DataCards/SkeletonCardSkill";
 
 const SkillsPage = () => {
     const AppContext = useContext(ApplicationContext);
     const [skills, setSkills] = useState([]);
     const [lastFetched, setLastFetched] = useState(new Date());
     const [isRespondedServer, setIsRespondedServer] = useState(false);
+    const [aiSubmission, setAiSubmission] = useState(null)
 
     useEffect(async () => {
         setIsRespondedServer(false);
@@ -26,15 +31,61 @@ const SkillsPage = () => {
 
     const updateLastFetched = () => setLastFetched(new Date());
 
+    const submitToAi = async () => {
+        // setIsRespondedServer(false);
+        try {
+            setSkills([]);
+            let params = `text=Find skills that meet the following criteria: ${aiSubmission}`
+            const res = await genericFunctionCall(params);
+            setSkills(res.data)
+        }
+        catch (e) {
+            console.log(e)
+            AppContext.handleError('Unable to process.');
+        }
+        // finally {
+        //     setIsRespondedServer(true);
+        // }
+    }
+
+    const VerbalFilter = () => (
+        <>
+            <img
+                src={DogPhoto}
+                style={{
+                    height: '50px',
+                    position: 'absolute',
+                    borderRadius: '100%',
+                    boxShadow: 'gray 0px 0px 7px'
+                }}
+            />
+            <TextField
+                style={{paddingLeft: '70px'}}
+                placeholder="Tell me what you would like to see! For example, 'Show me featured programming languages'"
+                value={aiSubmission}
+                autoFocus={true}
+                variant="outlined"
+                fullWidth={true}
+                onChange={e => setAiSubmission(e.target.value)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                        setAiSubmission('');
+                        submitToAi(e.target.value);
+                    }
+                }}
+            />
+        </>
+    )
+
     const generateSkillCards = (skillCode) => {
         let appCards = [];
         if (!isRespondedServer) {
             for (let i = 0; i < 7; i++) {
                 appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    {/*<CardEntrySkeleton/>*/}
+                    <SkeletonCardSkill/>
                 </Grid>);
             }
-        } else if (isRespondedServer && !skills.length) {
+        } else if (isRespondedServer && !skills?.length) {
             return (<Grid item xs={12}>
                 <div style={{textAlign: 'center', marginTop: '2rem'}}>
                     No entries to show for this source.
@@ -43,7 +94,7 @@ const SkillsPage = () => {
                 <br/>
             </Grid>);
         } else {
-            for (let i = 0; i < skills.length; i++) {
+            for (let i = 0; i < skills?.length; i++) {
                 if (skills[i].skill_type_code === skillCode) {
                     skills[i].published_date = moment(skills[i].published_date).utc();
                     appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={skills[i]._id}>
@@ -55,51 +106,38 @@ const SkillsPage = () => {
         return appCards;
     }
 
+    const generateSkillSections = () => {
+        let sections = [
+            {label: 'Back-End Frameworks', skillCode: 'BACKENDFRAMEWORK'},
+            {label: 'Front-End Frameworks', skillCode: 'FRONTENDFRAMEWORK'},
+            {label: 'Cloud Technologies', skillCode: 'CLOUD'},
+            {label: 'Languages', skillCode: 'LANGUAGE'},
+            {label: 'Databases', skillCode: 'DATABASE'},
+            {label: 'Libraries', skillCode: 'LIBRARY'},
+            {label: 'Dev Ops and Deployment Technologies', skillCode: 'DEPLOYMENT'},
+            {label: 'Data Science Tools', skillCode: 'DATASCIENCE'},
+            {label: 'ORMs', skillCode: 'ORM'},
+            {label: 'Operating Systems', skillCode: 'OPERATINGSYSTEM'},
+            {label: 'Other Technologies', skillCode: 'OTHER'},
+        ]
+        const sectionDivs = sections.map(item => {
+            let skillCards = generateSkillCards(item.skillCode);
+            if (!skillCards.length) return null;
+            return (
+                <>
+                    <h3 className={'primary-font'}>{item.label}</h3>
+                    <Grid container spacing={1}>
+                        {skillCards}
+                    </Grid>
+                </>
+            )
+        });
+        return sectionDivs
+    }
+
     return (<div class='animated fadeIn'>
-        <h3 className={'primary-font'}>Back-End Frameworks</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('BACKENDFRAMEWORK')}
-        </Grid>
-        <h3 className={'primary-font'}>Front-End Frameworks</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('FRONTENDFRAMEWORK')}
-        </Grid>
-        <h3 className={'primary-font'}>Databases</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('DATABASE')}
-        </Grid>
-        <h3 className={'primary-font'}>Deployment Technologies</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('DEPLOYMENT')}
-        </Grid>
-        <h3 className={'primary-font'}>Cloud Technologies</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('CLOUD')}
-        </Grid>
-        <h3 className={'primary-font'}>Languages</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('LANGUAGE')}
-        </Grid>
-        <h3 className={'primary-font'}>Library</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('LIBRARY')}
-        </Grid>
-        <h3 className={'primary-font'}>Data Science Tools</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('DATASCIENCE')}
-        </Grid>
-        <h3 className={'primary-font'}>ORMs</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('ORM')}
-        </Grid>
-        <h3 className={'primary-font'}>Operating Systems</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('OPERATINGSYSTEM')}
-        </Grid>
-        <h3 className={'primary-font'}>Other Technologies</h3>
-        <Grid container spacing={1}>
-            {generateSkillCards('OTHER')}
-        </Grid>
+        <VerbalFilter/>
+        {generateSkillSections()}
     </div>);
 
 };
