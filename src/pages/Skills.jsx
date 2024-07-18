@@ -135,6 +135,7 @@ const SkillsPage = () => {
             {label: 'Languages', skillCode: 'LANGUAGE'},
             {label: 'Databases', skillCode: 'DATABASE'},
             {label: 'Libraries', skillCode: 'LIBRARY'},
+            {label: 'Dev Ops and Deployment Technologies', skillCode: 'DEPLOYMENT'},
             {label: 'Data Science Tools', skillCode: 'DATASCIENCE'},
             {label: 'ORMs', skillCode: 'ORM'},
             {label: 'Operating Systems', skillCode: 'OPERATINGSYSTEM'},
