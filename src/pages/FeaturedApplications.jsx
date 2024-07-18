@@ -5,6 +5,7 @@ import {Chip, Grid} from '@material-ui/core';
 import CardApplication from '../components/DataCards/CardApplication';
 // import CardEntrySkeleton from '../components/DataCards/CardEntrySkeleton';
 import {getApplications} from "../services/applications.service";
+import SkeletonCardApplication from "../components/DataCards/SkeletonCardApplication";
 
 const FeaturedApplicationsPage = () => {
     const AppContext = useContext(ApplicationContext);
@@ -31,9 +32,9 @@ const FeaturedApplicationsPage = () => {
     const generateApplicationCards = () => {
         let appCards = [];
         if (!isRespondedServer) {
-            for (let i = 0; i < 7; i++) {
+            for (let i = 0; i < 2; i++) {
                 appCards.push(<Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
-                    {/*<CardEntrySkeleton/>*/}
+                    <SkeletonCardApplication/>
                 </Grid>);
             }
         } else if (isRespondedServer && !applications.length) {

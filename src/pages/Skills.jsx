@@ -8,6 +8,7 @@ import {getSkills} from "../services/skills.service";
 import {TextField} from "@mui/material";
 import {genericFunctionCall, searchEmbeddingsPlus} from "../services/ai.service";
 import DogPhoto from "../components/doggy.jpg";
+import SkeletonCardSkill from "../components/DataCards/SkeletonCardSkill";
 
 const SkillsPage = () => {
     const AppContext = useContext(ApplicationContext);
@@ -102,7 +103,7 @@ const SkillsPage = () => {
         if (!isRespondedServer) {
             for (let i = 0; i < 7; i++) {
                 appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    {/*<CardEntrySkeleton/>*/}
+                    <SkeletonCardSkill/>
                 </Grid>);
             }
         } else if (isRespondedServer && !skills?.length) {
@@ -132,6 +133,7 @@ const SkillsPage = () => {
             {label: 'Front-End Frameworks', skillCode: 'FRONTENDFRAMEWORK'},
             {label: 'Cloud Technologies', skillCode: 'CLOUD'},
             {label: 'Languages', skillCode: 'LANGUAGE'},
+            {label: 'Databases', skillCode: 'DATABASE'},
             {label: 'Libraries', skillCode: 'LIBRARY'},
             {label: 'Data Science Tools', skillCode: 'DATASCIENCE'},
             {label: 'ORMs', skillCode: 'ORM'},

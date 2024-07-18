@@ -7,6 +7,7 @@ import {getApplications} from "../services/applications.service";
 import AssociatedSkills from "../components/FormInputs/AssociatedSkills";
 import SupportStatus from "../components/FormInputs/SupportStatus";
 import {Button} from "@mui/material";
+import SkeletonCardApplication from "../components/DataCards/SkeletonCardApplication";
 
 const AllApplicationsPage = () => {
     const AppContext = useContext(ApplicationContext);
@@ -21,8 +22,9 @@ const AllApplicationsPage = () => {
     useEffect(() => {
         setIsRespondedServer(false);
         window.scrollTo(0, 0);
-        loadApplications()
-        setIsRespondedServer(true);
+        loadApplications().then(() => {
+            setIsRespondedServer(true);
+        })
     }, [page, filteredSkills, filteredStatuses]);
 
     const loadApplications = async () => {
@@ -47,7 +49,7 @@ const AllApplicationsPage = () => {
         if (!isRespondedServer) {
             for (let i = 0; i < 7; i++) {
                 appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
-                    {/*<CardEntrySkeleton/>*/}
+                    <SkeletonCardApplication minImageHeightPx={'120px'}/>
                 </Grid>);
             }
         } else if (isRespondedServer && !applications.length) {
