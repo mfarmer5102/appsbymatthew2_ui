@@ -1,30 +1,33 @@
 import React, {useContext, useEffect, useState} from 'react';
-import moment from 'moment';
+import moment, {Moment} from 'moment';
 import {ApplicationContext} from '../context/ApplicationContext';
-import {Chip, Grid} from '@material-ui/core';
+import {Grid} from '@material-ui/core';
 import CardApplication from '../components/DataCards/CardApplication';
-// import CardEntrySkeleton from '../components/DataCards/CardEntrySkeleton';
 import {getApplications} from "../services/applications.service";
 import SkeletonCardApplication from "../components/DataCards/SkeletonCardApplication";
+import {Application} from "./types";
 
 const FeaturedApplicationsPage = () => {
     const AppContext = useContext(ApplicationContext);
-    const [applications, setApplications] = useState([]);
+    const [applications, setApplications] = useState<Application[]>([]);
     const [lastFetched, setLastFetched] = useState(new Date());
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(12);
     const [isRespondedServer, setIsRespondedServer] = useState(false);
 
-    useEffect(async () => {
-        setIsRespondedServer(false);
-        window.scrollTo(0, 0);
-        try {
-            const apps = await getApplications('featured=true');
-            setApplications(apps);
-        } catch (e) {
-            AppContext.handleError('Unable to load applications.');
-        }
-        setIsRespondedServer(true);
+    useEffect(() => {
+        const pullData = async() => {
+            setIsRespondedServer(false);
+            window.scrollTo(0, 0);
+            try {
+                const apps = await getApplications('featured=true');
+                setApplications(apps);
+            } catch (e) {
+                AppContext.handleError('Unable to load applications.');
+            }
+            setIsRespondedServer(true);
+        };
+        pullData();
     }, [page, lastFetched]);
 
     const updateLastFetched = () => setLastFetched(new Date());

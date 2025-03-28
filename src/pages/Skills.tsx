@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import moment from 'moment';
+import moment, {Moment} from 'moment';
 import {ApplicationContext} from '../context/ApplicationContext';
 import {Chip, Grid} from '@material-ui/core';
 import CardSkill from '../components/DataCards/CardSkill';
@@ -7,19 +7,24 @@ import CardSkill from '../components/DataCards/CardSkill';
 import {getSkills} from "../services/skills.service";
 import {Button, TextField} from "@mui/material";
 import {genericFunctionCall, searchEmbeddingsPlus} from "../services/ai.service";
+// @ts-ignore
 import DogPhoto from "../components/doggy.jpg";
 import SkeletonCardSkill from "../components/DataCards/SkeletonCardSkill";
+import {Skill, SkillCardsProps, SkillSectionInput, SubmitToAiInput} from "./types";
 
 const SkillsPage = () => {
     const AppContext = useContext(ApplicationContext);
-    const [skills, setSkills] = useState([]);
+    const [skills, setSkills] = useState<Skill[]>([]);
     const [lastFetched, setLastFetched] = useState(new Date());
     const [isRespondedServer, setIsRespondedServer] = useState(false);
-    const [aiSubmission, setAiSubmission] = useState(null)
+    const [aiSubmission, setAiSubmission] = useState<String | null >(null)
 
-    useEffect(async () => {
-        window.scrollTo(0, 0);
-        await loadSkills();
+    useEffect(() => {
+        const pullData = async() => {
+            window.scrollTo(0, 0);
+            await loadSkills();
+        }
+        pullData();
     }, [lastFetched]);
 
     const loadSkills = async () => {
@@ -35,21 +40,24 @@ const SkillsPage = () => {
 
     const updateLastFetched = () => setLastFetched(new Date());
 
-    const submitToAi = async () => {
-        setIsRespondedServer(false);
-        try {
-            setSkills([]);
-            let params = `text=Find skills that meet the following criteria: ${aiSubmission}`
-            const res = await genericFunctionCall(params);
-            setSkills(res.data)
+    const submitToAi = ({input}: SubmitToAiInput) => {
+        const doSubmit = async() => {
+            setIsRespondedServer(false);
+            try {
+                setSkills([]);
+                let params = `text=Find skills that meet the following criteria: ${aiSubmission}`
+                const res = await genericFunctionCall(params);
+                setSkills(res.data)
+            }
+            catch (e) {
+                console.log(e)
+                AppContext.handleError('Unable to process.');
+            }
+            finally {
+                setIsRespondedServer(true);
+            }
         }
-        catch (e) {
-            console.log(e)
-            AppContext.handleError('Unable to process.');
-        }
-        finally {
-            setIsRespondedServer(true);
-        }
+        doSubmit();
     }
 
     const VerbalFilter = () => (
@@ -74,7 +82,8 @@ const SkillsPage = () => {
                 onKeyDown={(e) => {
                     if (e.key === 'Enter') {
                         setAiSubmission('');
-                        submitToAi(e.target.value);
+                        // @ts-ignore
+                        submitToAi({input: e.target.event});
                     }
                 }}
             />
@@ -86,36 +95,31 @@ const SkillsPage = () => {
         </>
     )
 
-    const generateSkillCards = (skillCode) => {
-        let appCards = [];
+    const generateSkillCards = ({skillCode}: SkillCardsProps): React.JSX.Element[] => {
+        let skillCards: React.JSX.Element[] = [];
         if (!isRespondedServer) {
             for (let i = 0; i < 7; i++) {
-                appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
+                skillCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2}>
                     <SkeletonCardSkill/>
                 </Grid>);
             }
         } else if (isRespondedServer && !skills?.length) {
-            return (<Grid item xs={12}>
-                <div style={{textAlign: 'center', marginTop: '2rem'}}>
-                    No skills to show.
-                </div>
-                <br/>
-            </Grid>);
+            return [];
         } else {
             for (let i = 0; i < skills?.length; i++) {
                 if (skills[i].skill_type_code === skillCode) {
                     skills[i].published_date = moment(skills[i].published_date).utc();
-                    appCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={`${skills[i].name}_${Math.random()}`}>
+                    skillCards.push(<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={`${skills[i].name}_${Math.random()}`}>
                         <CardSkill data={skills[i]} updateLastFetched={updateLastFetched}/>
                     </Grid>);
                 }
             }
         }
-        return appCards;
+        return skillCards;
     }
 
     const generateSkillSections = () => {
-        let sections = [
+        let sections : SkillSectionInput[] = [
             {label: 'Back-End Frameworks', skillCode: 'BACKENDFRAMEWORK'},
             {label: 'Front-End Frameworks', skillCode: 'FRONTENDFRAMEWORK'},
             {label: 'Cloud Technologies', skillCode: 'CLOUD'},
@@ -129,8 +133,8 @@ const SkillsPage = () => {
             {label: 'Other Technologies', skillCode: 'OTHER'},
         ]
         const sectionDivs = sections.map(item => {
-            let skillCards = generateSkillCards(item.skillCode);
-            if (!skillCards.length) return null;
+            let skillCards: React.JSX.Element[] = generateSkillCards({skillCode: item.skillCode});
+            if (!skillCards?.length) return null;
             return (
                 <>
                     <h3 className={'primary-font'}>{item.label}</h3>

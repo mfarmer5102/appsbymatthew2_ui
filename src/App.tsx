@@ -6,7 +6,7 @@ import ChatBox from "./components/ChatBox";
 const App = () => {
 
     useEffect(() => {
-        document.querySelector('html').setAttribute('data-theme', localStorage.getItem('theme') || 'light');
+        document.querySelector('html')?.setAttribute('data-theme', localStorage.getItem('theme') || 'light');
     }, []);
 
     return (

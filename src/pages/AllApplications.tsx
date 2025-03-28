@@ -8,10 +8,11 @@ import AssociatedSkills from "../components/FormInputs/AssociatedSkills";
 import SupportStatus from "../components/FormInputs/SupportStatus";
 import {Button} from "@mui/material";
 import SkeletonCardApplication from "../components/DataCards/SkeletonCardApplication";
+import {Application} from "./types";
 
 const AllApplicationsPage = () => {
     const AppContext = useContext(ApplicationContext);
-    const [applications, setApplications] = useState([]);
+    const [applications, setApplications] = useState<Application[]>([]);
     const [filteredSkills, setFilteredSkills] = useState([]);
     const [filteredStatuses, setFilteredStatuses] = useState([]);
     const [lastFetched, setLastFetched] = useState(new Date());
@@ -112,24 +113,50 @@ const AllApplicationsPage = () => {
             <br/><br/>
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: '1rem'}}>
                 {page !== 0 ?
-                    <Chip className='primary-font' variant="outlined" label="Return to First Page"
-                          style={{margin: '0.5rem'}}
-                          onClick={(e) => goFirstPage()}>Return to First Page</Chip> :
-                    <Chip className='primary-font' variant="outlined" label="Return to First Page"
-                          style={{margin: '0.5rem'}}
-                          disabled onClick={(e) => goFirstPage()}>Return to First Page</Chip>}
+                    <Chip
+                        className='primary-font'
+                        variant="outlined"
+                        label="Return to First Page"
+                        style={{margin: '0.5rem'}}
+                        onClick={(e) => goFirstPage()}
+                    /> :
+                    <Chip
+                        className='primary-font'
+                        variant="outlined"
+                        label="Return to First Page"
+                        style={{margin: '0.5rem'}}
+                        disabled onClick={(e) => goFirstPage()}
+                    />}
                 {page > 0 ?
-                    <Chip className='primary-font' variant="outlined" label="Previous Page" style={{margin: '0.5rem'}}
-                          onClick={(e) => goPreviousPage()}>Previous Page</Chip> :
-                    <Chip className='primary-font' variant="outlined" label="Previous Page" style={{margin: '0.5rem'}}
-                          disabled
-                          onClick={(e) => goPreviousPage()}>Previous Page</Chip>}
+                    <Chip
+                        className='primary-font'
+                        variant="outlined"
+                        label="Previous Page"
+                        style={{margin: '0.5rem'}}
+                        onClick={(e) => goPreviousPage()}
+                    /> :
+                    <Chip
+                        className='primary-font'
+                        variant="outlined"
+                        label="Previous Page"
+                        style={{margin: '0.5rem'}}
+                        disabled onClick={(e) => goPreviousPage()}
+                    />}
                 {applications.length === pageSize ?
-                    <Chip className='primary-font' variant="outlined" label="Next Page" style={{margin: '0.5rem'}}
-                          onClick={(e) => goNextPage()}>Next Page</Chip> :
-                    <Chip className='primary-font' variant="outlined" label="Next Page" style={{margin: '0.5rem'}}
-                          disabled
-                          onClick={(e) => goNextPage()}>Next Page</Chip>}
+                    <Chip
+                        className='primary-font'
+                        variant="outlined"
+                        label="Next Page"
+                        style={{margin: '0.5rem'}}
+                        onClick={(e) => goNextPage()}
+                    /> :
+                    <Chip
+                        className='primary-font'
+                        variant="outlined"
+                        label="Next Page"
+                        style={{margin: '0.5rem'}}
+                        disabled onClick={(e) => goNextPage()}
+                    />}
             </div>
         </div>
     );
