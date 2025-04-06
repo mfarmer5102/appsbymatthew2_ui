@@ -14,7 +14,7 @@
 // }
 
 let apiLocation = process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5001/api'
+    ? 'https://rz641y6xk0.execute-api.us-east-1.amazonaws.com/dev'
     : 'https://appsbymatthew2-api-nbfecgrwuq-uc.a.run.app/api'
 
 
