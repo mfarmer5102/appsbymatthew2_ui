@@ -3,7 +3,7 @@ WORKDIR /
 
 COPY . ./
 RUN npm install
-RUN npm build
+RUN npm run build
 
 FROM nginx:stable-alpine
 COPY --from=build /build /usr/share/nginx/html
