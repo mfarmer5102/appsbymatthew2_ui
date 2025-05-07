@@ -2,9 +2,8 @@ FROM node:16.19-alpine as build
 WORKDIR /
 
 COPY . ./
-RUN npm install yarn
-RUN yarn install
-RUN yarn run build
+RUN npm install
+RUN npm build
 
 FROM nginx:stable-alpine
 COPY --from=build /build /usr/share/nginx/html

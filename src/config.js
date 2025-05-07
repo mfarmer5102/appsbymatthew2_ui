@@ -14,7 +14,7 @@
 // }
 
 let apiLocation = process.env.NODE_ENV === 'development'
-    ? 'https://rz641y6xk0.execute-api.us-east-1.amazonaws.com/dev'
+    ? 'http://localhost:5001/api'
     : 'https://appsbymatthew2-api-nbfecgrwuq-uc.a.run.app/api'
 
 
@@ -31,7 +31,8 @@ let apiLocation = process.env.NODE_ENV === 'development'
 const config = {
     apiUrl: `${apiLocation}`,
     socketNamespace: `${apiLocation}`,
-    simulatedDelay: 0
+    simulatedDelay: 0,
+    imageUrlBasePath: "https://mfarmer5102-public.s3.us-east-1.amazonaws.com/application_data/apps_by_matthew/application_thumbnails/"
 }
 
 export default config;

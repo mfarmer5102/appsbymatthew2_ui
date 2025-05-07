@@ -2,10 +2,13 @@ import React, {useContext, useEffect} from 'react';
 import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton} from '@mui/material';
 import {ApplicationContext} from '../../context/ApplicationContext';
 import moment from "moment";
+import config from "../../config";
 
 const AppDetailsDialog = (props) => {
     const AppContext = useContext(ApplicationContext);
     const [open, setOpen] = React.useState(false);
+
+    const imageLocation = config.imageUrlBasePath + props.data['image_url_relative']
 
     useEffect(() => {
         console.log(props.data);
@@ -39,7 +42,7 @@ const AppDetailsDialog = (props) => {
             <DialogTitle className='modal primary-font'>{props.data['title']}</DialogTitle>
             <DialogContent className='modal primary-font'>
                 <DialogContentText className='modal primary-font'>
-                    <img src={props.data['image_url']} style={{maxWidth: '100%'}}/>
+                    <img src={imageLocation} style={{maxWidth: '100%'}}/>
                     <br/><br/>
                     {props.data['description']}
                     <br/><br/>
