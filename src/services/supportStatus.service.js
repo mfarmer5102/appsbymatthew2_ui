@@ -11,7 +11,8 @@ export async function getSupportStatuses(params) {
         // body: JSON.stringify({username, password})
     });
     if (response.ok) {
-        return await response.json();
+        const res = await response.json();
+        return res?.body;
     } else {
         throw new Error('Unable to load support statuses.');
     }
