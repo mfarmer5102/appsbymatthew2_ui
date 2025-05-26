@@ -13,10 +13,11 @@
 //     }
 // }
 
-let apiLocation = process.env.NODE_ENV === 'development'
-    ? 'http://localhost:5001/api'
-    : 'https://appsbymatthew2-api-nbfecgrwuq-uc.a.run.app/api'
+// let apiLocation = process.env.NODE_ENV === 'development'
+//     ? 'http://localhost:5001/api'
+//     : 'https://appsbymatthew2-api-nbfecgrwuq-uc.a.run.app/api'
 
+let apiLocation = "/api"
 
 // // 1st - Look for build variable; 2nd - Look at hostname; 3rd - Default to localhost
 // if (process.env.REACT_APP_API_LOCATION) {
