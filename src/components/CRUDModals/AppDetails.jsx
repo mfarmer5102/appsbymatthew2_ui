@@ -46,7 +46,7 @@ const AppDetailsDialog = (props) => {
                     <br/><br/>
                     {props.data['description']}
                     <br/><br/>
-                    First published on {moment(props.data['publish_date']['$date']).format('LL')}.
+                    First published on {moment(props.data?.publish_date?.['$date']).format('LL')}.
                     <br/><br/>
                     Demonstrates the following skills:
                     {generateSkillsUsed(props.data['associated_skill_codes'])}

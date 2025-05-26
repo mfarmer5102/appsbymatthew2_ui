@@ -46,7 +46,7 @@ const FeaturedApplicationsPage = () => {
             </Grid>);
         } else {
             for (let i = 0; i < applications.length; i++) {
-                applications[i].published_date = moment(applications[i].published_date).utc();
+                applications[i].published_date = moment(applications[i]?.published_date).utc();
                 appCards.push(<Grid item xs={12} sm={6} md={6} lg={6} xl={6} key={applications[i]._id}>
                     <CardApplication data={applications[i]} updateLastFetched={updateLastFetched}/>
                 </Grid>);
