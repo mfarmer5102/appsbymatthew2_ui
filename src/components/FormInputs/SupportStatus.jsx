@@ -68,7 +68,7 @@ const MultipleSelectCheckmarks = ({filteredStatuses, setFilteredStatuses}) => {
                     )}
                     MenuProps={generateMenuProps()}
                 >
-                    {supportStatusOptions.map((item) => (
+                    {supportStatusOptions?.map((item) => (
                         <MenuItem key={item.label} value={item.code}>
                             <Checkbox checked={filteredStatuses.indexOf(item.code) > -1} />
                             <ListItemText primary={item.label} />
