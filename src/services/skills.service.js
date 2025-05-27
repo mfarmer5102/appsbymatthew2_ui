@@ -12,7 +12,7 @@ export async function getSkills(params) {
     });
     if (response.ok) {
         const res = await response.json();
-        return res?.body;
+        return res;
     } else {
         throw new Error('Unable to load skills.');
     }
