@@ -18,6 +18,7 @@
 //     : 'https://appsbymatthew2-api-nbfecgrwuq-uc.a.run.app/api'
 
 let apiLocation = "/api"
+if (process.env.NODE_ENV === 'development') apiLocation = "http://localhost:8081/api"
 
 // // 1st - Look for build variable; 2nd - Look at hostname; 3rd - Default to localhost
 // if (process.env.REACT_APP_API_LOCATION) {
