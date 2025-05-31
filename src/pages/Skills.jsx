@@ -65,7 +65,7 @@ const SkillsPage = () => {
             />
             <TextField
                 style={{paddingLeft: '70px'}}
-                placeholder="Tell me what you would like to see! For example, 'Show me featured programming languages'"
+                placeholder="Tell me what you would like to see! For example, 'Show me backend frameworks'"
                 value={aiSubmission}
                 autoFocus={true}
                 variant="outlined"
